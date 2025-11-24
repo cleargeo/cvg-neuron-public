@@ -1,0 +1,23 @@
+# CVG Neuron Public - AI-Generated Code Samples
+# Requirements for running example scripts
+
+# Core dependencies for examples
+pandas>=2.0.0
+openpyxl>=3.1.0  # For Excel output in batch processing examples
+
+# ArcGIS (Note: Must be installed separately with ArcGIS Pro or ArcGIS Enterprise)
+# arcpy comes with ArcGIS installation - cannot be pip installed
+
+# Optional: For working with geospatial data outside ArcGIS
+geopandas>=0.14.0
+rasterio>=1.3.0
+shapely>=2.0.0
+pyproj>=3.6.0
+
+# Development and testing
+jupyter>=1.0.0
+notebook>=7.0.0
+
+# Note: These are the libraries used in AI-generated example scripts
+# Not all examples require all dependencies
+# Install only what you need for your specific use case
