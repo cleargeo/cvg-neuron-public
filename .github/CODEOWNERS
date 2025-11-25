@@ -1,0 +1,30 @@
+# Code Owners for CVG Neuron Public Samples
+# These owners will be automatically requested for review when someone opens a pull request
+
+# Global owners (all files)
+* @cleargeo
+
+# Documentation
+*.md @cleargeo
+/docs/ @cleargeo
+
+# Python code examples
+*.py @cleargeo
+/examples/ @cleargeo
+
+# Shell scripts
+*.sh @cleargeo
+
+# GitHub configuration
+/.github/ @cleargeo
+
+# CI/CD workflows
+/.github/workflows/ @cleargeo
+
+# Security-related files
+SECURITY.md @cleargeo
+/.github/dependabot.yml @cleargeo
+
+# License files
+LICENSE @cleargeo
+ENTERPRISE_LICENSE.md @cleargeo

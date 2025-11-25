@@ -1,0 +1,74 @@
+name: 'Close Stale Issues and PRs'
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Daily at midnight
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          
+          # Issues
+          days-before-issue-stale: 60
+          days-before-issue-close: 14
+          stale-issue-label: 'stale'
+          stale-issue-message: |
+            👋 This issue has been automatically marked as stale because it has not had recent activity in the last 60 days.
+            
+            It will be closed in 14 days if no further activity occurs.
+            
+            - If this issue is still relevant, please comment to keep it open
+            - If you've found a solution, please share it to help others
+            - Join our [Discussions](https://github.com/cleargeo/cvg-neuron-public/discussions) for questions
+            - Try our [free chat](https://clearviewgeographic.com/chat) for instant assistance
+            
+            Thank you for your contributions to CVG Neuron! 🙏
+          close-issue-message: |
+            🔒 This issue has been automatically closed due to inactivity.
+            
+            - If this issue is still relevant, please open a new issue with updated information
+            - Feel free to reference this issue in your new submission
+            - Join [Discussions](https://github.com/cleargeo/cvg-neuron-public/discussions) for ongoing conversations
+            
+            Thank you for your understanding!
+          
+          # Pull Requests
+          days-before-pr-stale: 30
+          days-before-pr-close: 14
+          stale-pr-label: 'stale'
+          stale-pr-message: |
+            👋 This pull request has been automatically marked as stale because it has not had recent activity in the last 30 days.
+            
+            It will be closed in 14 days if no further activity occurs.
+            
+            - If you're still working on this, please comment or push new commits
+            - If you need help, please ask in the PR comments or [Discussions](https://github.com/cleargeo/cvg-neuron-public/discussions)
+            - We appreciate your contribution to CVG Neuron! 🚀
+          close-pr-message: |
+            🔒 This pull request has been automatically closed due to inactivity.
+            
+            - If you'd like to continue this work, please open a new PR
+            - Thank you for your contribution attempt!
+            - We welcome you to try again when you're ready
+          
+          # Exemptions
+          exempt-issue-labels: 'pinned,security,priority: critical'
+          exempt-pr-labels: 'pinned,security,breaking-change'
+          exempt-milestones: true
+          exempt-assignees: true
+          
+          # Behavior
+          ascending: true
+          remove-stale-when-updated: true
+          
+          # Operations
+          operations-per-run: 100

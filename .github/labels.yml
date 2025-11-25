@@ -1,0 +1,122 @@
+# Label Configuration for CVG Neuron Public Samples
+# Automatically sync labels across repository
+
+# Priority Labels
+- name: "priority: critical"
+  color: "d73a4a"
+  description: "Critical priority - needs immediate attention"
+
+- name: "priority: high"
+  color: "ff6b6b"
+  description: "High priority issue or PR"
+
+- name: "priority: medium"
+  color: "ffa500"
+  description: "Medium priority"
+
+- name: "priority: low"
+  color: "fbca04"
+  description: "Low priority"
+
+# Type Labels
+- name: "type: bug"
+  color: "d73a4a"
+  description: "Something isn't working"
+
+- name: "type: feature"
+  color: "a2eeef"
+  description: "New feature or request"
+
+- name: "type: documentation"
+  color: "0075ca"
+  description: "Improvements or additions to documentation"
+
+- name: "type: question"
+  color: "d876e3"
+  description: "Further information is requested"
+
+- name: "type: enhancement"
+  color: "a2eeef"
+  description: "Enhancement to existing feature"
+
+# Domain Labels
+- name: "domain: environmental"
+  color: "2ea44f"
+  description: "Environmental consulting, climate, flood risk"
+
+- name: "domain: business"
+  color: "0e8a16"
+  description: "Business operations, consulting, proposals"
+
+- name: "domain: technical"
+  color: "1d76db"
+  description: "GIS, automation, infrastructure"
+
+- name: "domain: ai-ml"
+  color: "5319e7"
+  description: "AI/ML, continuous learning, neural networks"
+
+# Status Labels
+- name: "status: needs-review"
+  color: "fbca04"
+  description: "Awaiting review from maintainers"
+
+- name: "status: in-progress"
+  color: "0e8a16"
+  description: "Work in progress"
+
+- name: "status: blocked"
+  color: "d73a4a"
+  description: "Blocked by dependencies or decisions"
+
+- name: "status: ready-to-merge"
+  color: "2ea44f"
+  description: "Ready to be merged"
+
+# Special Labels
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good for newcomers"
+
+- name: "help wanted"
+  color: "008672"
+  description: "Extra attention is needed"
+
+- name: "duplicate"
+  color: "cfd3d7"
+  description: "This issue or pull request already exists"
+
+- name: "wontfix"
+  color: "ffffff"
+  description: "This will not be worked on"
+
+- name: "invalid"
+  color: "e4e669"
+  description: "This doesn't seem right"
+
+# Dependencies
+- name: "dependencies"
+  color: "0366d6"
+  description: "Dependencies updates"
+
+- name: "security"
+  color: "d73a4a"
+  description: "Security vulnerability or concern"
+
+# Platform Labels
+- name: "platform: enterprise"
+  color: "5319e7"
+  description: "Enterprise tier features"
+
+- name: "platform: free"
+  color: "2ea44f"
+  description: "Free tier features"
+
+# GitHub Special
+- name: "github-actions"
+  color: "000000"
+  description: "GitHub Actions workflows"
+
+- name: "breaking-change"
+  color: "d73a4a"
+  description: "Breaking change that affects existing users"

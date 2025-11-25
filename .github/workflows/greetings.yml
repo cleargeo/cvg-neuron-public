@@ -1,0 +1,74 @@
+name: Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    
+    steps:
+      - name: Greet First Time Contributors
+        uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: |
+            👋 Welcome to CVG Neuron Public Samples!
+            
+            Thank you for opening your first issue! We're excited to have you in our community of environmental and business intelligence practitioners.
+            
+            ## What Happens Next?
+            
+            - A maintainer will review your issue within 1-2 business days
+            - You'll receive updates as we investigate and respond
+            - Feel free to join the conversation in [Discussions](https://github.com/cleargeo/cvg-neuron-public/discussions)
+            
+            ## While You Wait
+            
+            - 🆓 [Try our free chat](https://clearviewgeographic.com/chat) for instant AI assistance
+            - 📚 [Browse documentation](https://clearviewgeographic.com/docs)
+            - 💬 [Join discussions](https://github.com/cleargeo/cvg-neuron-public/discussions)
+            - 🌟 Consider starring this repository if you find it useful!
+            
+            ## About CVG Neuron
+            
+            CVG Neuron is a continuously learning AI platform trained on 290+ real environmental consulting, GIS, and business intelligence projects. Unlike static AI, it gets smarter with every interaction!
+            
+            Thanks for contributing to making CVG Neuron better! 🚀
+            
+          pr-message: |
+            🎉 Thank you for your first pull request to CVG Neuron Public Samples!
+            
+            We're thrilled to have you contribute to our continuously learning, open-source community.
+            
+            ## What Happens Next?
+            
+            1. **Automated Checks** - Our CI/CD pipeline will run automated tests
+            2. **Code Review** - A maintainer will review your changes
+            3. **Feedback** - We may request changes or ask questions
+            4. **Merge** - Once approved, your contribution will be merged!
+            
+            ## Contribution Guidelines
+            
+            Please ensure:
+            - ✅ You've read [CONTRIBUTING.md](https://github.com/cleargeo/cvg-neuron-public/blob/master/CONTRIBUTING.md)
+            - ✅ All automated checks pass
+            - ✅ Code follows our style guidelines
+            - ✅ Documentation is updated if needed
+            
+            ## Recognition
+            
+            Your contribution will be:
+            - 🌟 Credited in release notes
+            - 📝 Listed in our contributors section
+            - 🏆 Recognized in the community
+            
+            ## Questions?
+            
+            - 💬 [Ask in Discussions](https://github.com/cleargeo/cvg-neuron-public/discussions)
+            - 📧 Email: support@clearviewgeographic.com
+            - 🆓 [Try free chat](https://clearviewgeographic.com/chat) for technical questions
+            
+            Thank you for helping make CVG Neuron better for everyone! Your contribution helps improve our continuously learning platform. 🧠💚
