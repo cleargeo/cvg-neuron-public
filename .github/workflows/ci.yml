@@ -1,0 +1,215 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: Shell Script Linting
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          severity: warning
+          format: gcc
+      
+      - name: Shell script syntax check
+        run: |
+          echo "Checking shell script syntax..."
+          find . -type f -name "*.sh" -not -path "./.git/*" | while read file; do
+            echo "Checking: $file"
+            bash -n "$file" || exit 1
+          done
+
+  security-scan:
+    name: Security Scanning
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check for TODO/FIXME comments
+        run: |
+          echo "Checking for TODO/FIXME comments..."
+          if grep -r "TODO\|FIXME" --include="*.sh" --include="*.py" .; then
+            echo "⚠️ Found TODO/FIXME comments. Consider addressing them."
+          else
+            echo "✅ No TODO/FIXME comments found."
+          fi
+      
+      - name: Check file permissions
+        run: |
+          echo "Checking for executable permissions..."
+          find . -type f -name "*.sh" ! -perm -111 | while read file; do
+            echo "⚠️ Missing executable permission: $file"
+          done
+      
+      - name: Check for trailing whitespace
+        run: |
+          echo "Checking for trailing whitespace..."
+          if grep -r " $" --include="*.sh" --include="*.md" .; then
+            echo "⚠️ Found trailing whitespace"
+            exit 1
+          fi
+
+  documentation:
+    name: Documentation Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check README exists
+        run: |
+          if [ ! -f README.md ]; then
+            echo "❌ README.md not found!"
+            exit 1
+          fi
+          echo "✅ README.md found"
+      
+      - name: Check community health files
+        run: |
+          files=("CONTRIBUTING.md" "CODE_OF_CONDUCT.md" "SECURITY.md" "SUPPORT.md")
+          for file in "${files[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ $file found"
+            else
+              echo "⚠️ $file missing"
+            fi
+          done
+      
+      - name: Validate markdown links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          config-file: '.github/markdown-link-check-config.json'
+          continue-on-error: true
+
+  perl-check:
+    name: Perl Script Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Perl
+        uses: perl-actions/install-with-cpanm@v1
+        with:
+          perl: '5.36'
+      
+      - name: Check Perl syntax
+        run: |
+          echo "Checking Perl script syntax..."
+          find . -type f -name "*.pl" -not -path "./.git/*" | while read file; do
+            echo "Checking: $file"
+            perl -c "$file" || exit 1
+          done
+
+  license-check:
+    name: License Compliance
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check LICENSE file
+        run: |
+          if [ -f LICENSE ] || [ -f LICENSE.md ] || [ -f LICENSE.txt ]; then
+            echo "✅ License file found"
+          else
+            echo "⚠️ License file missing"
+          fi
+      
+      - name: Check file headers
+        run: |
+          echo "Checking for copyright headers in key files..."
+          # Add specific header checks as needed
+
+  build-test:
+    name: Build and Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Test sample execution (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          echo "Testing sample scripts can be executed..."
+          # Add specific test commands here
+      
+      - name: Test sample execution (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          echo "Testing sample scripts on Windows..."
+          # Add Windows-specific tests here
+
+  summary:
+    name: CI Summary
+    runs-on: ubuntu-latest
+    needs: [shellcheck, security-scan, code-quality, documentation, perl-check, license-check, build-test]
+    if: always()
+    
+    steps:
+      - name: Check job statuses
+        run: |
+          echo "CI Pipeline Summary:"
+          echo "==================="
+          echo "ShellCheck: ${{ needs.shellcheck.result }}"
+          echo "Security Scan: ${{ needs.security-scan.result }}"
+          echo "Code Quality: ${{ needs.code-quality.result }}"
+          echo "Documentation: ${{ needs.documentation.result }}"
+          echo "Perl Check: ${{ needs.perl-check.result }}"
+          echo "License Check: ${{ needs.license-check.result }}"
+          echo "Build Test: ${{ needs.build-test.result }}"
+          echo "==================="
+      
+      - name: Report status
+        if: |
+          needs.shellcheck.result != 'success' ||
+          needs.security-scan.result != 'success' ||
+          needs.code-quality.result != 'success' ||
+          needs.build-test.result != 'success'
+        run: |
+          echo "⚠️ Some checks failed. Please review the logs above."
+          exit 1
