@@ -132,6 +132,7 @@ This repository contains **MIT-licensed sample code** demonstrating CVG Neuron's
 - **Shell Script Utilities** - Helper scripts for common tasks
 - **Configuration Templates** - Sample configuration files
 - **Integration Patterns** - Basic integration examples
+- **Webhook Integration** - Python client + server setup for GitHub, Azure DevOps, and generic deployment webhooks
 
 ### Coming Soon
 - **Python AI Agents** - Autonomous business intelligence agents
@@ -432,9 +433,10 @@ Discover a vulnerability?
 - [x] Security features
 
 #### Phase 2: Samples & Examples (In Progress)
-- [ ] Python AI agent examples
+- [x] Python AI agent examples
+- [x] Webhook integration (GitHub, Azure DevOps, generic deploy)
 - [ ] Business automation samples
-- [ ] API integration demos
+- [x] API integration demos
 - [ ] Proposal development templates
 - [ ] Report generation examples
 

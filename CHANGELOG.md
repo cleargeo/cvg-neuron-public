@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added - Integration Enhancement (2026-06-22)
+
+#### Webhook Integration Examples
+- `examples/webhook_integration/neuron_webhook_client.py` -- Full Python client for Neuron's webhook receiver
+  - `NeuronWebhookClient` class with methods for GitHub, Azure DevOps, and generic deployment events
+  - HMAC-SHA256 signature support for GitHub webhooks
+  - Includes runnable `__main__` with examples for all event types
+- `examples/webhook_integration/README.md` -- Webhook receiver setup guide
+  - GitHub webhook configuration steps
+  - Azure DevOps service hook configuration
+  - Generic deployment webhook curl examples
+  - Security considerations and event flow documentation
+
+#### Documentation Updates
+- README: Added webhook integration to "Current Samples"
+- README: Updated Phase 2 roadmap (webhook integration + API demos marked complete)
+
 ### Planned
 - Additional Python automation examples
 - Web interface integration samples
@@ -129,5 +146,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for information on how to contribute to t
 ---
 
 **Maintained by:** Clearview Geographic LLC  
-**Last Updated:** November 25, 2025  
+**Last Updated:** June 22, 2026  
 **Format:** [Keep a Changelog](https://keepachangelog.com/)
